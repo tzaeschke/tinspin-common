@@ -1,0 +1,3 @@
+2018-12-14 - 1.0.1
+==================
+- Fixed headers in logfiles
