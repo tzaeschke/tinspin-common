@@ -37,7 +37,13 @@ public abstract class Candidate {
 	 * 
 	 * @return number of point queries that matched a point
 	 */
-	public abstract int pointQuery(Object qA);
+	@Deprecated
+	public int pointQuery(Object qA) {
+		return pointQuery(qA, new int[0]);
+	}
+	public int pointQuery(Object qA, int[] ids) {
+		return pointQuery(qA);
+	}
 
 	/**
 	 * Called when the tree should execute the 
@@ -72,9 +78,16 @@ public abstract class Candidate {
 	 * @return number of matched points
 	 */
 	public abstract int query(double[] min, double[] max);
-	
-	
-	public abstract int update(double[][] updateTable);
+
+
+	@Deprecated
+	public int update(double[][] updateTable) {
+		return update(updateTable, new int[0]);
+	}
+
+	public int update(double[][] updateTable, int[] updateIDs) {
+		return update(updateTable);
+	}
 
 	public List<?> queryToList(double[] min, double[] max) {
 		if (min == null || max == null) {

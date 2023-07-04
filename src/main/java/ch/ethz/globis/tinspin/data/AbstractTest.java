@@ -64,8 +64,14 @@ public abstract class AbstractTest {
 	}
 
 	public abstract double[] generate();
+
+	@Deprecated // Please use generateUpdates*int, double[], double[][], int[])
 	public abstract double[][] generateUpdates(int n, double[] data, double[][] ups);
-	
+	public double[][] generateUpdates(int n, double[] data, double[][] ups, int[] ids) {
+		// TODO remove in newer version
+		return generateUpdates(n, data, ups);
+	}
+
 	public void log(String str) {
 		System.out.println(str);
 	}
