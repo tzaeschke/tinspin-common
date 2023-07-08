@@ -24,7 +24,9 @@ public class TestStats implements Serializable, Cloneable {
 	public static final double DEFAULT_DATA_LEN = 1.0;
 	/** Average edge length of the data rectangles. */
 	public static final double DEFAULT_RECT_LEN = 0.00001;
-	
+
+	public static final int DEFAULT_DUPLICATES = 1;
+
 	/** How often are tests repeated? */
 	public static int DEFAULT_CFG_REPEAT = 3;
 	
@@ -54,6 +56,11 @@ public class TestStats implements Serializable, Cloneable {
 		this.param2 = param2;
 	}
 
+	public TestStats setDuplicates(int duplicates) {
+		cfgDuplicates = duplicates;
+		return this;
+	}
+
 	//configuration
 	/** how often to repeat the test. */
 	int cfgNRepeat = DEFAULT_CFG_REPEAT;
@@ -75,7 +82,10 @@ public class TestStats implements Serializable, Cloneable {
 	public double cfgDataLen = DEFAULT_DATA_LEN;
 	/** length of the data rectangles */
 	public double cfgRectLen = DEFAULT_RECT_LEN;
-	
+
+	/** Number of point duplicates. n=1 means no duplicates, n=2 means every point exists 2 times. */
+	public int cfgDuplicates = DEFAULT_DUPLICATES;
+
 	public final IndexHandle INDEX;
 	public final TestHandle TEST;
 	public String SEEDmsg;
@@ -86,7 +96,8 @@ public class TestStats implements Serializable, Cloneable {
 	public String paramStr2;
 	public boolean paramEnforceGC = true;
 	public final boolean isRangeData;
-	/** 
+	public boolean isMultimap = false;
+	/**
 	 * Tests are repeated until a minimum amount of time has passed. 
 	 * This avoid problems with very fasts implementations (timing, not warmed up). 
 	 */
@@ -95,54 +106,53 @@ public class TestStats implements Serializable, Cloneable {
 	Class<? extends AbstractTest> testClass;
 	Class<? extends Candidate> indexClass;
 
-	//results
-	//times
-	long statTGen;
-	long statTLoad;
-	long statTUnload;
-	long statTq1;
-	long statTq1E;
-	long statTq2;
-	long statTq2E;
-	long statTqp1;
-	long statTqp1E;
-	long statTqp2;
-	long statTqp2E;
-	long statTqk1_1;
-	long statTqk1_1E;
-	long statTqk1_2;
-	long statTqk1_2E;
-	long statTqk10_1;
-	long statTqk10_1E;
-	long statTqk10_2;
-	long statTqk10_2E;
-	long statTu1;
-	long statTu1E;
-	long statTu2;
-	long statTu2E;
+	// results: times
+	public long statTGen;
+	public long statTLoad;
+	public long statTUnload;
+	public long statTq1;
+	public long statTq1E;
+	public long statTq2;
+	public long statTq2E;
+	public long statTqp1;
+	public long statTqp1E;
+	public long statTqp2;
+	public long statTqp2E;
+	public long statTqk1_1;
+	public long statTqk1_1E;
+	public long statTqk1_2;
+	public long statTqk1_2E;
+	public long statTqk10_1;
+	public long statTqk10_1E;
+	public long statTqk10_2;
+	public long statTqk10_2E;
+	public long statTu1;
+	public long statTu1E;
+	public long statTu2;
+	public long statTu2E;
 	//per second
-	long statPSLoad;
-	long statPSUnload;
-	long statPSq1;
-	long statPSq1E;
-	long statPSq2;
-	long statPSq2E;
-	long statPSqp1;
-	long statPSqp1E;
-	long statPSqp2;
-	long statPSqp2E;
-	long statPSqk1_1;
-	long statPSqk1_1E;
-	long statPSqk1_2;
-	long statPSqk1_2E;
-	long statPSqk10_1;
-	long statPSqk10_1E;
-	long statPSqk10_2;
-	long statPSqk10_2E;
-	long statPSu1;
-	long statPSu1E;
-	long statPSu2;
-	long statPSu2E;
+	public long statPSLoad;
+	public long statPSUnload;
+	public long statPSq1;
+	public long statPSq1E;
+	public long statPSq2;
+	public long statPSq2E;
+	public long statPSqp1;
+	public long statPSqp1E;
+	public long statPSqp2;
+	public long statPSqp2E;
+	public long statPSqk1_1;
+	public long statPSqk1_1E;
+	public long statPSqk1_2;
+	public long statPSqk1_2E;
+	public long statPSqk10_1;
+	public long statPSqk10_1E;
+	public long statPSqk10_2;
+	public long statPSqk10_2E;
+	public long statPSu1;
+	public long statPSu1E;
+	public long statPSu2;
+	public long statPSu2E;
 	public int statNnodes;
 	public long statNpostlen;
 	public int statNNodeAHC;
@@ -151,34 +161,34 @@ public class TestStats implements Serializable, Cloneable {
 	public long statNDistCalcKNN;
 	public int statNNodeNT;
 	public int statNNodeInternalNT;
-	int statNq1;
-	int statNq2;
-	int statNqp1;
-	int statNqp2;
-	double statDqk1_1;
-	double statDqk1_2;
-	double statDqk10_1;
-	double statDqk10_2;
-	int statNu1;
-	int statNu2;
+	public int statNq1;
+	public int statNq2;
+	public int statNqp1;
+	public int statNqp2;
+	public double statDqk1_1;
+	public double statDqk1_2;
+	public double statDqk10_1;
+	public double statDqk10_2;
+	public int statNu1;
+	public int statNu2;
 	public long statSCalc;
 	public long statSjvmF;
 	public long statSjvmE;
-	long statGcDiffL;
-	long statGcTimeL;
-	long statGcDiffWq;
-	long statGcTimeWq;
-	long statGcDiffPq;
-	long statGcTimePq;
-	long statGcDiffUp;
-	long statGcTimeUp;
-	long statGcDiffK1;
-	long statGcTimeK1;
-	long statGcDiffK10;
-	long statGcTimeK10;
-	long statGcDiffUl;
-	long statGcTimeUl;
-	String assortedInfo = "";
+	public long statGcDiffL;
+	public long statGcTimeL;
+	public long statGcDiffWq;
+	public long statGcTimeWq;
+	public long statGcDiffPq;
+	public long statGcTimePq;
+	public long statGcDiffUp;
+	public long statGcTimeUp;
+	public long statGcDiffK1;
+	public long statGcTimeK1;
+	public long statGcDiffK10;
+	public long statGcTimeK10;
+	public long statGcDiffUl;
+	public long statGcTimeUl;
+	public String assortedInfo = "";
 
 	Throwable exception = null;
 
@@ -301,16 +311,17 @@ public class TestStats implements Serializable, Cloneable {
 		String ret = "";
 		ret += INDEX.name();
 		ret += "-" + (isRangeData ? "R" : "P");
+		ret += "-" + (isMultimap ? "MM" : "M");
 		return ret;
 	}
 	
 	public String testDescription2() {
-		return TEST.name() + "(" + param1 + "," + param2 + "," + paramStr + "," + paramStr2 + ")";
+		return TEST.name() + "(" + cfgDuplicates + ","+ param1 + "," + param2 + "," + paramStr + "," + paramStr2 + ")";
 	}
 	
 	@Override
 	public String toString() {
-		return toStringOld();
+		return toStringNew();
 	}
 	
 	public String toStringOld() {

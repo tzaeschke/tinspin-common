@@ -277,4 +277,26 @@ public abstract class Candidate {
 		return "Please provide configuration information for "
 				+ " every test candidate class in the toString() method.";
 	}
+
+	/**
+	 * @return the number of entries in the index.
+	 */
+	public int size() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * Remove all entries from the index.
+	 */
+	public void clear() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 *
+	 * @return a string output of the tree structure with all entries
+	 */
+	public String toStringTree() {
+		throw new UnsupportedOperationException();
+	}
 }
