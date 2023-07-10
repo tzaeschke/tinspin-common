@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1 - 2023-07-10
+
+- Fixed scope of junit dependency
+
 ## 1.2.0 - 2023-07-10
 
 - More improvements for supporting multimap and tinspin-indexes
