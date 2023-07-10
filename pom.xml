@@ -3,7 +3,7 @@
   <groupId>org.tinspin</groupId>
   <artifactId>tinspin-common</artifactId>
   <packaging>jar</packaging>
-  <version>1.2.0</version>
+  <version>1.2.1-SNAPSHOT</version>
   
   	<name>tinspin-common</name>
 	<description>TinSpin framework common files</description>
@@ -12,7 +12,7 @@
   		<connection>scm:git:git@github.com:tzaeschke/tinspin-common.git</connection>
   		<developerConnection>scm:git:git@github.com:tzaeschke/tinspin-common.git</developerConnection>
   		<url>https://github.com/tzaeschke/tinspin-common</url>
-	  <tag>tinspin-common-1.2.0</tag>
+	  <tag>HEAD</tag>
   </scm>	
 	<licenses>
 	  <license>
