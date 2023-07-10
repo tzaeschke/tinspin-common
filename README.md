@@ -8,6 +8,6 @@ This module is also available via maven:
 <dependency>
 	<groupId>org.tinspin</groupId>
 	<artifactId>tinspin-common</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.1</version>
 </dependency>
 ```
